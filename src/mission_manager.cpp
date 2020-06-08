@@ -6,7 +6,8 @@
 
 namespace mission_manager {
 
-MissionManager::MissionManager() {}
+MissionManager::MissionManager(const goals_sequence_path_planner::Node &final_node,
+                 const goals_sequence_path_planner::NodeArray &goals_list) : ({}
 
 void MissionManager::requestPaths() {}
 
