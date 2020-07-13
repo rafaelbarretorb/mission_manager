@@ -11,6 +11,10 @@ find_package(
   catkin REQUIRED
   roscpp
   std_msgs
+  geometry_msgs
+  nav_msgs
+  tf2
+  tf2_ros
   trajectory_tracking_control 
   goals_sequence_path_planner
 )
@@ -108,6 +112,10 @@ catkin_package(
   CATKIN_DEPENDS
   roscpp
   std_msgs
+  nav_msgs
+  geometry_msgs
+  tf2
+  tf2_ros
   trajectory_tracking_control 
   goals_sequence_path_planner
 )
