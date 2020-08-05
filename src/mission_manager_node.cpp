@@ -26,9 +26,9 @@ int main(int argc, char **argv) {
 
   // Goal 2
   goals_sequence_path_planner::Node goal_2;
-  goal_2.x.data = 6.0;
+  goal_2.x.data = 7.0;
   goal_2.y.data = 0.0;
-  goal_2.yaw.data = 3.1416/2;
+  goal_2.yaw.data = 3.1416/3;
   goal_2.optimize.data = true;
 
   // Goal 3

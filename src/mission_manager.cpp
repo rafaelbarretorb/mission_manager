@@ -18,7 +18,7 @@ MissionManager::MissionManager(ros::NodeHandle *nodehandle,
   pub_paths_ = nh_.advertise<goals_sequence_path_planner::PathArray>("/global_planner", 100);
   tf2_ros::TransformListener tfListener(tfBuffer_);
 
-  ros::Rate rate(1);
+  ros::Rate rate(10);
 
   // getInitialPose();
 
