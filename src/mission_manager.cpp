@@ -27,7 +27,7 @@ MissionManager::MissionManager(ros::NodeHandle *nodehandle,
   //   ROS_INFO("Waiting initial pose");
   // }
 
-  ROS_INFO("Waiting for trajectory tracking control action server to start.");
+  // ROS_INFO("Waiting for trajectory tracking control action server to start.");
 
 
   // Service: Path Planning
@@ -67,9 +67,16 @@ void MissionManager::requestTrajectoryController() {
   trajectory_tracking_control::ExecuteTrajectoryTrackingGoal goal;
   goal.average_velocity = 0.5;
   goal.sampling_time = 0.1;  // TODO(RAFAEL)
-  goal.path = paths_.paths[0];
 
-  controller_ac_.sendGoal(goal);
+
+  ROS_INFO("Number of paths: %i", int(paths_.paths.size()));
+
+  for (int i = 0; i < paths_.paths.size(); i++) {
+    goal.path = paths_.paths[i];
+    controller_ac_.sendGoal(goal);
+    controller_ac_.waitForResult();
+    ros::Duration(5).sleep();
+  }
 }
 
 void MissionManager::odomFilteredCb(const nav_msgs::Odometry &msg) {
