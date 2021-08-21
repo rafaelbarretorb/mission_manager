@@ -42,10 +42,27 @@ MissionManager::MissionManager(ros::NodeHandle *nodehandle,
 void MissionManager::execute() {
   requestPaths();
 
+  // Start Recording
+  ROS_WARN("Start Recording NOW!");
+
+  ros::Duration(5).sleep(); // sleep for 5 seconds
+
   // Publish Paths Visualization
   pub_paths_.publish(paths_);
 
+  // Start count time
+  ros::Time zero_time = ros::Time::now();
+  ros::Duration delta_t;
+  double delta_t_sec;
+
   requestTrajectoryController();
+
+  delta_t = ros::Time::now() - zero_time;
+  delta_t_sec = delta_t.toSec();
+
+  ROS_INFO("Mission duration: %2f", delta_t_sec);
+
+  ROS_INFO("Number of paths: %i", int(paths_.paths.size()));
 }
 
 void MissionManager::requestPaths() {
@@ -65,7 +82,7 @@ void MissionManager::requestPaths() {
 
 void MissionManager::requestTrajectoryController() {
   trajectory_tracking_control::ExecuteTrajectoryTrackingGoal goal;
-  goal.average_velocity = 0.5;
+  goal.average_velocity = 0.3;
   goal.sampling_time = 0.1;  // TODO(RAFAEL)
 
 
@@ -75,7 +92,7 @@ void MissionManager::requestTrajectoryController() {
     goal.path = paths_.paths[i];
     controller_ac_.sendGoal(goal);
     controller_ac_.waitForResult();
-    ros::Duration(5).sleep();
+    ros::Duration(1).sleep();
   }
 }
 
